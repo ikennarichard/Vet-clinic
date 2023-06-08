@@ -16,7 +16,7 @@ neutered, weight_kg) VALUES
 ('Blossom', '1998-10-13', 3, TRUE, 17),
 ('Ditto', '2022-05-14', 4, TRUE, 22);
 
---@block
+
 INSERT INTO owners (full_name, age)
 VALUES ('Sam Smith', 34),
 ('Jennifer Orwell', 19),
@@ -25,44 +25,35 @@ VALUES ('Sam Smith', 34),
 ('Dean Winchester', 14),
 ('Jodie Whittaker', 38);
 
---@block
+
 INSERT INTO species (name) 
 VALUES ('Pokemon'), ('Digimon');
 
---@block
+
 UPDATE animals SET species_id = 2 
 WHERE name LIKE '%mon';
 
---@block
+
 UPDATE animals SET species_id = 1 
 WHERE species_id IS NULL;
 
 
 --sam smith (1) owns agumon
---@block
 UPDATE animals SET owner_id = 1 WHERE name = 'Agumon';
 
 -- jennifer(2) owns gabumon
---@block
 UPDATE animals SET owner_id = 2 
 WHERE name IN ('Gabumon', 'Pikachu');
 
 
 -- bob(3) owns Devimon and Plantmon.
---@block
 UPDATE animals SET owner_id = 3 
 WHERE name IN ('Devimon', 'Plantmon');
 
 
 -- melody(4) owns Charmander, Squirtle, and Blossom.
---@block
 UPDATE animals SET owner_id = 4 
 WHERE name IN ('Charmander', 'Squirtle', 'Blossom');
 
 -- dean(5) owns Angemon and Boarmon.
---@block
 UPDATE animals SET owner_id = 5 WHERE name IN ('Angemon', 'Boarmon');
-
-
---@block
-select * from animals;
