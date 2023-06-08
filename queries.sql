@@ -54,7 +54,7 @@ ROLLBACK TO save_point1;
 UPDATE animals SET weight_kg = weight_kg * -1 WHERE weight_kg < 0;
 COMMIT;
 
---how many animals are there?
+-- how many animals are there?
 SELECT COUNT(*) FROM animals;
 
 -- how many animals never tried to escape?
@@ -63,11 +63,62 @@ SELECT COUNT(*) FROM animals WHERE escape_attempts = 0;
 -- whats the average weight of animals?
 SELECT AVG(weight_kg) FROM animals;
 
--- Who escapes the most, neutered or not neutered animals?\
+-- who escapes the most, neutered or not neutered animals?\
 SELECT neutered, SUM(escape_attempts) FROM animals GROUP BY neutered;
 
--- What is the minimum and maximum weight of each type of animal?
-SELECT species, MIN(weight_kg), MAX(weight_kg) FROM animals GROUP BY species;
+-- what is the minimum and maximum weight of each type of animal?
+SELECT species, MIN(weight_kg), MAX(weight_kg) 
+FROM animals GROUP BY species;
 
--- What is the average number of escape attempts per animal type of those born between 1990 and 2000?
-SELECT species, AVG(escape_attempts) FROM animals WHERE date_of_birth BETWEEN '1990-01-01' AND '2000-12-31' GROUP BY species;
+-- what is the average number of escape attempts per animal type of those born between 1990 and 2000?
+SELECT species, AVG(escape_attempts) 
+FROM animals WHERE date_of_birth BETWEEN 
+'1990-01-01' AND '2000-12-31' GROUP BY species;
+
+
+--@block
+-- what animals belong to Melody Pond?
+SELECT * FROM animals JOIN owners 
+ON animals.owner_id = owners.id 
+WHERE owners.full_name = 'Melody Pond';
+
+
+
+--@block
+-- list all animals that are pokemon.
+SELECT * FROM animals JOIN species ON 
+animals.species_id = species.id 
+WHERE species.name = 'Pokemon';
+
+
+-- list all owners and their animals, 
+--include those that don't own any animal.
+--@block
+SELECT * FROM owners LEFT JOIN animals 
+ON owners.id = animals.owner_id;
+
+
+-- how many animals are there per species?
+--@block
+SELECT species.name, COUNT(*) FROM species 
+JOIN animals ON species.id = animals.species_id 
+GROUP BY species.name;
+
+-- list all digimon owned by jennifer.
+--@block
+SELECT * FROM animals JOIN owners 
+ON animals.owner_id = owners.id 
+WHERE owners.full_name = 'Jennifer Orwell' 
+AND animals.species_id = 2;
+
+
+-- list all animals owned by Dean Winchester that haven't tried to escape.
+--@block
+SELECT * FROM animals JOIN owners 
+ON animals.owner_id = owners.id 
+WHERE owners.full_name = 'Dean Winchester' 
+AND animals.escape_attempts = 0;
+
+-- who owns the most animals?
+--@block
+SELECT owners.full_name, COUNT(animals.owner_id) FROM owners LEFT JOIN animals ON owners.id = animals.owner_id GROUP BY owners.full_name ORDER BY COUNT(animals.owner_id) DESC LIMIT 1;
