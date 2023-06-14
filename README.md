@@ -21,6 +21,8 @@
 
 This is a project about creating the data structure for a vet clinic using a relational database. The structure contains tables of animals. Built with PostgresSQL.
 
+![](./images/db_diagram.PNG)
+
 ## 🛠 Built With <a name="built-with"></a>
 
 ### Tech Stack <a name="tech-stack"></a>

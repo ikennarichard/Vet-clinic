@@ -43,7 +43,11 @@ ADD CONSTRAINT owners_fk
 FOREIGN KEY(owner_id) 
 REFERENCES owners(id); 
 
--- vets table
+-- vets table N 
+
+    
+
+
 CREATE TABLE vets (
     id SERIAL PRIMARY KEY,
     name TEXT,
@@ -63,3 +67,19 @@ CREATE TABLE visits (
     vet_id INT REFERENCES vets(id),
     date_of_visit DATE
 );
+
+-- fix animals id of visits
+alter table visits
+rename animals_id to animal_id;
+
+-- add email column to owners table
+alter table owners 
+add column email varchar(120);
+
+
+-- add indexes for the visits 
+-- and owners table
+--@block
+CREATE INDEX animals_id_asc ON visits(animal_id ASC);
+CREATE INDEX vet_id_asc ON visits(vet_id ASC);
+CREATE INDEX email_asc ON owners(email ASC);
